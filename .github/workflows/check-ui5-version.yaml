@@ -31,12 +31,10 @@ jobs:
           const manifestPath = './app/bookshop/webapp/manifest.json';
           const versionOverviewUrl = 'https://ui5.sap.com/versionoverview.json';
 
-          async function getValidVersion() {
+          async function getValidVersions() {
             const response = await axios.get(versionOverviewUrl);
-            const versions = response.data.versions;
-
             // Filter versions with "support": "Maintenance" and "sapuiversion": "Cloud only"
-            const maintenanceVersions = versions.filter(v => 
+            const maintenanceVersions = response.data.versions.filter(v => 
               v.support === 'Maintenance' && v.sapuiversion === 'Cloud only'
             );
 
@@ -47,29 +45,24 @@ jobs:
               return yearB - yearA || qB - qA;
             });
 
-            return maintenanceVersions[0]?.version || null;
+            return maintenanceVersions;
           }
 
           async function main() {
             const manifest = JSON.parse(fs.readFileSync(manifestPath, {encoding:'utf8'}));
-            const currentVersion = manifest['sap.platform.cf']?.ui5VersionNumber;
+            let currentVersion = manifest['sap.platform.cf']?.ui5VersionNumber;
 
             if (!currentVersion) {
               console.log('::set-output name=update_required::false');
               return;
             }
 
-            const response = await axios.get(versionOverviewUrl);
-            const validVersions = response.data.versions.map(v => v.version);
+            currentVersion = currentVersion.replace(/[xX]/, '*');
+            const validVersions = await getValidVersions();
 
-            let selectedVersion = currentVersion;
             if (!validVersions.includes(currentVersion)) {
-              selectedVersion = await getValidVersion();
-            }
-
-            if (semver.lt(currentVersion, selectedVersion)) {
               console.log('::set-output name=update_required::true');
-              console.log('::set-output name=new_version::' + selectedVersion);
+              console.log('::set-output name=new_version::' + validVersions[0].version);
             } else {
               console.log('::set-output name=update_required::false');
             }
