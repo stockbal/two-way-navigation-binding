@@ -94,7 +94,9 @@
         {
           "name": "RouteMainView",
           "pattern": ":?query:",
-          "target": ["TargetMainView"]
+          "target": [
+            "TargetMainView"
+          ]
         }
       ],
       "targets": {
@@ -111,6 +113,6 @@
     }
   },
   "sap.platform.cf": {
-    "ui5VersionNumber": "1.117.*"
+    "ui5VersionNumber": "1.133.*"
   }
 }
