@@ -62,7 +62,7 @@ jobs:
 
             if (!validVersions.includes(currentVersion)) {
               console.log('::set-output name=update_required::true');
-              manifest['sap.platform.cf']?.ui5VersionNumber = validVersions[0].version;
+              manifest['sap.platform.cf'].ui5VersionNumber = validVersions[0].version;
               fs.writeFileSync(JSON.stringify(manifest), undefined ,2);
             } else {
               console.log('::set-output name=update_required::false');
