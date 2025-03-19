@@ -86,4 +86,4 @@ jobs:
           body: |
             The `ui5VersionNumber` in `manifest.json` was outdated. This PR updates it to the required version.  
           add-paths: |
-            app/bookshop/manifest.json
+            app/**/webapp/manifest.json
