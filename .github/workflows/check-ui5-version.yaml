@@ -62,7 +62,8 @@ jobs:
 
             if (!validVersions.includes(currentVersion)) {
               console.log('::set-output name=update_required::true');
-              console.log('::set-output name=new_version::' + validVersions[0].version);
+              manifest['sap.platform.cf']?.ui5VersionNumber = validVersions[0].version;
+              fs.writeFileSync(JSON.stringify(manifest), undefined ,2);
             } else {
               console.log('::set-output name=update_required::false');
             }
@@ -74,20 +75,15 @@ jobs:
           });
           EOF
 
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
-
       - name: Create Pull Request
         if: steps.check_version.outputs.update_required == 'true'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Update UI5 version in manifest.json"
-          branch: update-ui5-version
+          commit-message: "chore: update UI5 version in manifest.json"
+          branch: update-ui5-version/patch
           title: "Update UI5 Version"
           body: |
-            The `ui5VersionNumber` in `manifest.json` was outdated. This PR updates it to the required version.
-          files: |
+            The `ui5VersionNumber` in `manifest.json` was outdated. This PR updates it to the required version.  
+          add-paths: |
             app/bookshop/manifest.json
-          content: |
-            ${{ steps.check_version.outputs.new_version }} | jq '.sap.platform.cf.ui5VersionNumber = input' > app/bookshop/manifest.json
