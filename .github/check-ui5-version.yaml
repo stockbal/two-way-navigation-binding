@@ -1,0 +1,99 @@
+name: Check UI5 Version
+
+on:
+  workflow_dispatch: # Allows manual triggering
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+
+jobs:
+  check-ui5-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install semver axios
+
+      - name: Check UI5 Version
+        id: check_version
+        run: |
+          node <<EOF
+          const fs = require('fs');
+          const semver = require('semver');
+          const axios = require('axios');
+          const manifestPath = './app/bookshop/manifest.json';
+          const versionOverviewUrl = 'https://ui5.sap.com/versionoverview.json';
+
+          async function getValidVersion() {
+            const response = await axios.get(versionOverviewUrl);
+            const versions = response.data.versions;
+
+            // Filter versions with "support": "Maintenance" and "sapuiversion": "Cloud only"
+            const maintenanceVersions = versions.filter(v => 
+              v.support === 'Maintenance' && v.sapuiversion === 'Cloud only'
+            );
+
+            // Sort by end of maintenance (eom) in descending order
+            maintenanceVersions.sort((a, b) => {
+              const [qA, yearA] = a.eom.split('/').map((v, i) => i === 0 ? parseInt(v.slice(1)) : parseInt(v));
+              const [qB, yearB] = b.eom.split('/').map((v, i) => i === 0 ? parseInt(v.slice(1)) : parseInt(v));
+              return yearB - yearA || qB - qA;
+            });
+
+            return maintenanceVersions[0]?.version || null;
+          }
+
+          async function main() {
+            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            const currentVersion = manifest['sap.platform.cf']?.ui5VersionNumber;
+
+            if (!currentVersion) {
+              console.log('::set-output name=update_required::false');
+              return;
+            }
+
+            const response = await axios.get(versionOverviewUrl);
+            const validVersions = response.data.versions.map(v => v.version);
+
+            let selectedVersion = currentVersion;
+            if (!validVersions.includes(currentVersion)) {
+              selectedVersion = await getValidVersion();
+            }
+
+            if (semver.lt(currentVersion, selectedVersion)) {
+              console.log('::set-output name=update_required::true');
+              console.log('::set-output name=new_version::' + selectedVersion);
+            } else {
+              console.log('::set-output name=update_required::false');
+            }
+          }
+
+          main().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          EOF
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Create Pull Request
+        if: steps.check_version.outputs.update_required == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Update UI5 version in manifest.json'
+          branch: update-ui5-version
+          title: 'Update UI5 Version'
+          body: |
+            The `ui5VersionNumber` in `manifest.json` was outdated. This PR updates it to the required version.
+          files: |
+            app/bookshop/manifest.json
+          content: |
+            ${{ steps.check_version.outputs.new_version }} | jq '.sap.platform.cf.ui5VersionNumber = input' > app/bookshop/manifest.json
