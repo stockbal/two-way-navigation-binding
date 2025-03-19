@@ -110,7 +110,6 @@
       "id": "App"
     }
   },
-  "sap.platform.cf": {
-    "ui5VersionNumber": "1.117.*"
+  undefined
   }
 }
