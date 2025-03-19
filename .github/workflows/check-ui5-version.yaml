@@ -31,6 +31,8 @@ jobs:
           const manifestPath = './app/bookshop/manifest.json';
           const versionOverviewUrl = 'https://ui5.sap.com/versionoverview.json';
 
+          console.log(__dirname);
+
           async function getValidVersion() {
             const response = await axios.get(versionOverviewUrl);
             const versions = response.data.versions;
