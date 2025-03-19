@@ -1,0 +1,37 @@
+<mvc:View controllerName="shop.bookshop.controller.MainView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="_IDGenPage1" showHeader="false" enableScrolling="true" class="sapUiContentPadding" showNavButton="false">
+        <content>
+            <!--<Table id="idSalesTable" growing="true" growingThreshold="10" mode="MultiSelect" items="{path: 'sales', factory: '.salesItems'}"> -->
+            <Table id="idSalesTable" growing="true" growingThreshold="10" mode="MultiSelect" keyboardMode="Edit">
+                <headerToolbar>
+                    <OverflowToolbar id="otbSubheader">
+                        <Title id="_IDGenTitle" text="Sales" level="H2" />
+                        <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                        <Button id="refreshButton" icon="sap-icon://refresh" type="Transparent" press="onRefresh" />
+                        <ToolbarSeparator id="_IDGenToolbarSeparator" />
+                        <Button id="addButton" icon="sap-icon://add" type="Transparent" press="onAdd" />
+                        <Button id="deleteButton" icon="sap-icon://delete" type="Transparent" press="onDelete" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="_IDGenColumn" width="12em">
+                        <Text id="_IDGenText" text="Amount" />
+                    </Column>
+                </columns>
+            </Table>
+        </content>
+        <footer>
+            <OverflowToolbar id="otbFooter">
+                <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                <Button id="_IDGenButton" icon="sap-icon://save" text="Save" press="onSave">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData" priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+            </OverflowToolbar>
+        </footer>
+
+    </Page>
+</mvc:View>
