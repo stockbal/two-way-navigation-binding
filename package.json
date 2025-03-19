@@ -8,7 +8,9 @@
   "dependencies": {
     "@cap-js-community/odata-v2-adapter": "^1.14.1",
     "@sap/cds": "^8",
-    "express": "^4"
+    "axios": "^1.8.3",
+    "express": "^4",
+    "semver": "^7.7.1"
   },
   "devDependencies": {
     "@cap-js/cds-types": "^0.9.0",
