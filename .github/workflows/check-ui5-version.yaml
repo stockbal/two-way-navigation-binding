@@ -63,8 +63,10 @@ jobs:
 
             if (!validVersions.includes(currentVersion)) {
               console.log('::set-output name=update_required::true');
-              manifestContent = manifestContent.replace(/("sap\.platform\.cf"\s*:\s*\{\s*"ui5VersionNumber"\s*:\s*")(.*)(")/, `$1${validVersions[0].version}$3`);
-              fs.writeFileSync(manifestPath, manifestContent, {encoding:'utf8'});
+              //manifestContent = manifestContent.replace(/("sap\.platform\.cf"\s*:\s*\{\s*"ui5VersionNumber"\s*:\s*")(.*)(")/, `$1${validVersions[0].version}$3`);
+              //fs.writeFileSync(manifestPath, manifestContent, {encoding:'utf8'});
+              manifest['sap.platform.cf'].ui5VersionNumber = validVersions[0].version;
+              fs.writeFileSync(manifestPath, JSON.stringify(manifest, undefined, 2), {encoding:'utf8'});
             } else {
               console.log('::set-output name=update_required::false');
             }
