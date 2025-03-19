@@ -49,7 +49,8 @@ jobs:
           }
 
           async function main() {
-            const manifest = JSON.parse(fs.readFileSync(manifestPath, {encoding:'utf8'}));
+            const manifestContent = fs.readFileSync(manifestPath, {encoding:'utf8'});
+            const manifest = JSON.parse(manifestContent);
             let currentVersion = manifest['sap.platform.cf']?.ui5VersionNumber;
 
             if (!currentVersion) {
@@ -62,8 +63,8 @@ jobs:
 
             if (!validVersions.includes(currentVersion)) {
               console.log('::set-output name=update_required::true');
-              manifest['sap.platform.cf'].ui5VersionNumber = validVersions[0].version;
-              fs.writeFileSync(manifestPath, JSON.stringify(manifest, undefined ,2), {encoding:'utf8'});
+              manifestContent = manifest.replace(/(\.*"sap\.platform\.cf"\s*:\s*\{\s*"ui5VersionNumber"\s*:\s*")(.*)(")/, `$1${validVersions[0].version}$3`);
+              fs.writeFileSync(manifestPath, manifestContent, {encoding:'utf8'});
             } else {
               console.log('::set-output name=update_required::false');
             }
