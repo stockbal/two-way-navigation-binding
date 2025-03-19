@@ -3,7 +3,6 @@
     xmlns="sap.m">
     <Page id="_IDGenPage1" showHeader="false" enableScrolling="true" class="sapUiContentPadding" showNavButton="false">
         <content>
-            <!--<Table id="idSalesTable" growing="true" growingThreshold="10" mode="MultiSelect" items="{path: 'sales', factory: '.salesItems'}"> -->
             <Table id="idSalesTable" growing="true" growingThreshold="10" mode="MultiSelect" keyboardMode="Edit">
                 <headerToolbar>
                     <OverflowToolbar id="otbSubheader">
@@ -19,6 +18,12 @@
                     <Column id="_IDGenColumn" width="12em">
                         <Text id="_IDGenText" text="Amount" />
                     </Column>
+                    <Column id="_IDGenColumn2" width="12em">
+                        <Text id="salesPersonsHeader" text="Sales Persons" />
+                    </Column>
+                    <Column id="_IDGenColumn3" width="12em">
+                        <Text id="newSalesPersonHeader" text="Actions" />
+                    </Column>
                 </columns>
             </Table>
         </content>
@@ -28,6 +33,11 @@
                 <Button id="_IDGenButton" icon="sap-icon://save" text="Save" press="onSave">
                     <layoutData>
                         <OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData" priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+                <Button id="_IDGenButton2" icon="sap-icon://cancel" text="Cancel" press="onCancel">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData2" priority="NeverOverflow" />
                     </layoutData>
                 </Button>
             </OverflowToolbar>

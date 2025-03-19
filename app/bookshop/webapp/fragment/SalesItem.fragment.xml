@@ -3,15 +3,16 @@
     xmlns:cust="shop.bookshop.controls">
     <ColumnListItem id="_IDGenColumnListItem1">
         <cells>
-            <HBox id="_IDGenHBox">
+            <HBox id="_IDGenHBox" class="sapUiSmallPadding" alignItems="Stretch" justifyContent="Start">
                 <Input id="_IDGenInput" value="{amount}" change="onChanged"/>
                 <Input id="currInput" value="{currency_code}" />
-                <MultiInput id="salesPersons" tokens="{salesPersons}">
-                    <tokens>
-                        <Token id="salesPersonToken" key="{ID}" text="{name}" delete="onSalesPersonRemoved"/>
-                    </tokens>
-                </MultiInput>
             </HBox>
+            <MultiInput id="salesPersons" tokens="{salesPersons}" tokenUpdate="onTokenChange">
+                <tokens>
+                    <Token id="salesPersonToken" key="{ID}" text="{name}" delete="onSalesPersonRemoved"/>
+                </tokens>
+            </MultiInput>
+            <Button id="newToken" press="onNewToken" text="New Token"/>
         </cells>
     </ColumnListItem>
 </core:FragmentDefinition>
