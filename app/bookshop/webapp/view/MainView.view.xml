@@ -1,0 +1,40 @@
+<mvc:View controllerName="shop.bookshop.controller.MainView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="_IDGenPage1" showHeader="false" enableScrolling="true" class="sapUiContentPadding" showNavButton="false">
+        <content>
+            <Table id="idSalesTable" growing="true" growingThreshold="10" mode="MultiSelect" keyboardMode="Edit">
+                <headerToolbar>
+                    <OverflowToolbar id="otbSubheader">
+                        <Title id="salesTitle" text="Sales" level="H2" />
+                        <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                        <Button id="refreshBtn" icon="sap-icon://refresh" type="Transparent" press="onRefresh" />
+                        <ToolbarSeparator id="_IDGenToolbarSeparator" />
+                        <Button id="addBtn" icon="sap-icon://add" type="Transparent" press="onAdd" />
+                        <Button id="deleteBtn" icon="sap-icon://delete" type="Transparent" press="onDelete" />
+                        <Button id="customSaveBtn" text="Custom Save" type="Transparent" press="onCustomSave" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="amountCol" width="12em">
+                        <Text id="amoutnColTxt" text="Amount" />
+                    </Column>
+                    <Column id="salesPrsnCol" width="12em">
+                        <Text id="salesPrsnColTxt" text="Sales Persons" />
+                    </Column>
+                    <Column id="actionsCol" width="12em">
+                        <Text id="actionsColTxt" text="Actions" />
+                    </Column>
+                </columns>
+            </Table>
+        </content>
+        <footer>
+            <OverflowToolbar id="otbFooter">
+                <ToolbarSpacer id="footerSpacer" />
+                <Button id="saveBtn" icon="sap-icon://save" text="Save" press="onSave" />
+                <Button id="cancelBtn" icon="sap-icon://cancel" text="Cancel" press="onCancel" />
+            </OverflowToolbar>
+        </footer>
+
+    </Page>
+</mvc:View>

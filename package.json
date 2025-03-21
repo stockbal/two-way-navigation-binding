@@ -1,0 +1,32 @@
+{
+  "name": "two-way-navigation-binding",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js-community/odata-v2-adapter": "^1.14.1",
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.9.0",
+    "@cap-js/sqlite": "^1",
+    "@eslint/js": "^9.22.0",
+    "@sap/cds-common-content": "^2.1.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-no-floating-promise": "^2.0.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.3"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "objectWrap": "collapse"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds w"
+  }
+}

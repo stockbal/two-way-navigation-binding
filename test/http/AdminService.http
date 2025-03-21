@@ -1,0 +1,152 @@
+@server = http://localhost:4004
+@auth = Authorization: Basic alice:
+
+
+### Books
+# @name Books_GET
+GET {{server}}/odata/v4/admin/Books
+{{auth}}
+
+
+### Books
+# @name Books_POST
+POST {{server}}/odata/v2/admin/Books
+Content-Type: application/json
+{{auth}}
+
+{
+  "ID": "36138014-87ba-472d-8ed4-f69a427447d4",
+  "title": "title-3613801",
+  "sales": [
+    {
+      "ID": "19593612-9acb-4291-8eac-f7a5c9f69b97",
+      "amount": 14.32,
+      "currency": {
+        "code": "240"
+      },
+      "createdAt": "2008-09-12T23:00:00.000Z",
+      "createdBy": "createdBy.bnyj0@example.net",
+      "modifiedAt": "2011-12-11T23:00:00.000Z",
+      "modifiedBy": "modifiedBy.bnyj0@example.com"
+    },
+    {
+      "ID": "19593613-1e0f-4a17-9338-f7b685101c68",
+      "amount": 52.98,
+      "currency": {
+        "code": "240"
+      },
+      "createdAt": "2007-12-12T23:00:00.000Z",
+      "createdBy": "createdBy.bnyj1@example.net",
+      "modifiedAt": "2022-08-12T23:00:00.000Z",
+      "modifiedBy": "modifiedBy.bnyj1@example.org"
+    }
+  ],
+  "createdAt": "2018-11-30T23:00:00.000Z",
+  "createdBy": "createdBy.25gfd@example.net",
+  "modifiedAt": "2008-06-21T23:00:00.000Z",
+  "modifiedBy": "modifiedBy.25gfd@example.org"
+}
+
+
+### Books
+# @name Books_PATCH
+PATCH {{server}}/odata/v4/admin/Books/36138014-87ba-472d-8ed4-f69a427447d4
+Content-Type: application/json
+{{auth}}
+
+{
+  "ID": "36138014-87ba-472d-8ed4-f69a427447d4",
+  "title": "title-3613801",
+  "sales": [
+    {
+      "ID": "19593612-9acb-4291-8eac-f7a5c9f69b97",
+      "amount": 14.32,
+      "currency": {
+        "code": "240"
+      },
+      "createdAt": "2008-09-12T23:00:00.000Z",
+      "createdBy": "createdBy.bnyj0@example.net",
+      "modifiedAt": "2011-12-11T23:00:00.000Z",
+      "modifiedBy": "modifiedBy.bnyj0@example.com"
+    },
+    {
+      "ID": "19593613-1e0f-4a17-9338-f7b685101c68",
+      "amount": 52.98,
+      "currency": {
+        "code": "240"
+      },
+      "createdAt": "2007-12-12T23:00:00.000Z",
+      "createdBy": "createdBy.bnyj1@example.net",
+      "modifiedAt": "2022-08-12T23:00:00.000Z",
+      "modifiedBy": "modifiedBy.bnyj1@example.org"
+    }
+  ],
+  "createdAt": "2018-11-30T23:00:00.000Z",
+  "createdBy": "createdBy.25gfd@example.net",
+  "modifiedAt": "2008-06-21T23:00:00.000Z",
+  "modifiedBy": "modifiedBy.25gfd@example.org"
+}
+
+
+### Books
+# @name Books_DELETE
+DELETE {{server}}/odata/v4/admin/Books/36138014-87ba-472d-8ed4-f69a427447d4
+Content-Type: application/json
+{{auth}}
+
+
+### Sales
+# @name Sales_GET
+GET {{server}}/odata/v4/admin/Sales
+{{auth}}
+
+
+### Sales
+# @name Sales_POST
+POST {{server}}/odata/v4/admin/Sales
+Content-Type: application/json
+{{auth}}
+
+{
+  "ID": "19593612-9acb-4291-8eac-f7a5c9f69b97",
+  "amount": 14.32,
+  "currency": {
+    "code": "240"
+  },
+  "createdAt": "2008-09-12T23:00:00.000Z",
+  "createdBy": "createdBy.bnyj0@example.net",
+  "modifiedAt": "2011-12-11T23:00:00.000Z",
+  "modifiedBy": "modifiedBy.bnyj0@example.com"
+}
+
+
+### Sales
+# @name Sales_PATCH
+PATCH {{server}}/odata/v4/admin/Sales/19593612-9acb-4291-8eac-f7a5c9f69b97
+Content-Type: application/json
+{{auth}}
+
+{
+  "ID": "19593612-9acb-4291-8eac-f7a5c9f69b97",
+  "amount": 14.32,
+  "currency": {
+    "code": "240"
+  },
+  "createdAt": "2008-09-12T23:00:00.000Z",
+  "createdBy": "createdBy.bnyj0@example.net",
+  "modifiedAt": "2011-12-11T23:00:00.000Z",
+  "modifiedBy": "modifiedBy.bnyj0@example.com"
+}
+
+
+### Sales
+# @name Sales_DELETE
+DELETE {{server}}/odata/v4/admin/Sales/19593612-9acb-4291-8eac-f7a5c9f69b97
+Content-Type: application/json
+{{auth}}
+
+
+### Currencies
+# @name Currencies_GET
+GET {{server}}/odata/v4/admin/Currencies
+{{auth}}
