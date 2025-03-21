@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:cust="shop.bookshop.controls">
+    <ColumnListItem id="_IDGenColumnListItem1">
+        <cells>
+            <HBox id="amountHbox" class="sapUiSmallPadding" alignItems="Stretch" justifyContent="Start">
+                <Input id="amountInput" value="{amount}" change="onChanged"/>
+                <!-- <Input id="currInput" value="{currency_code}" /> -->
+                <cust:CustomInput id="custInput" value="{currency_code}" />
+            </HBox>
+            <MultiInput id="salesPersonsInput" tokens="{salesPersons}" tokenUpdate="onTokenChange">
+                <tokens>
+                    <Token id="salesPersonToken" key="{ID}" text="{name}" delete="onSalesPersonRemoved"/>
+                </tokens>
+            </MultiInput>
+            <Button id="newTokenBtn" press="onNewToken" text="New Token"/>
+        </cells>
+    </ColumnListItem>
+</core:FragmentDefinition>
